@@ -1,0 +1,42 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+#*.so
+#*.dylib
+
+
+# Fortran module files
+*.mod
+*.smod
+*.pdb
+
+# Compiled Static libraries
+*.lai
+*.la
+#*.lib
+#*.dll
+
+# Executables
+*.exe
+*.out
+*.app
+*.iobj
+*.ipdb
+*.exp
+*.ilk
+*.log
+*.dmp
+*.tmk
+
+# Folder
+Intermediate

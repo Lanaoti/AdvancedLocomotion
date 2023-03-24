@@ -1,0 +1,9 @@
+{
+	"BuildId": "23058290",
+	"Modules": 
+	{
+		"AdvancedLocomotion": "UnrealEditor-AdvancedLocomotion.dll",
+		"AdvancedLocomotionEditor": "UnrealEditor-AdvancedLocomotionEditor.dll",
+		"AdvancedLocomotionGraph": "UnrealEditor-AdvancedLocomotionGraph.dll"
+	}
+}
