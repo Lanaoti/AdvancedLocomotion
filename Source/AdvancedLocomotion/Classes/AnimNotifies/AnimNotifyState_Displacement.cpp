@@ -55,13 +55,21 @@ void UAnimNotifyState_Displacement::NotifyTick(USkeletalMeshComponent* MeshComp,
 			const float Value = Curve.Evaluate(PlayPostion) * DistCurveValueMultiple;
 			const float FrameDeltaValue = Curve.Evaluate(PlayPostion - PlayRate * FrameDeltaTime);
 
+			#if ENGINE_MAJOR_VERSION >=5 && ENGINE_MINOR_VERSION >= 3
+			if (Curve.GetName().IsEqual(DistCurveName))
+			#else
 			if (Curve.Name.DisplayName.IsEqual(DistCurveName))
+			#endif
 			{
 				FVector DeltaLocation = FVector(Value - FrameDeltaValue, 0.f, 0.f);
 				Character->AddActorLocalOffset(DeltaLocation, true);
 			}
 
+			#if ENGINE_MAJOR_VERSION >=5 && ENGINE_MINOR_VERSION >= 3
+			if (Curve.GetName().IsEqual(TurnCurveName))
+			#else
 			if (Curve.Name.DisplayName.IsEqual(TurnCurveName))
+			#endif
 			{
 				FRotator DeltaRotation = FRotator(0.f, FrameDeltaValue - Value, 0.f);
 				Character->AddActorLocalRotation(DeltaRotation);
