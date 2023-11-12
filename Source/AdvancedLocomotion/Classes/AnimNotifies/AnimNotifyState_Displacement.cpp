@@ -5,6 +5,7 @@
 #include "Animation/AnimSequenceBase.h"
 #include "Interfaces/DisplacementInterface.h"
 #include "GameFramework/Character.h"
+#include "Misc/EngineVersionComparison.h"
 
 
 UAnimNotifyState_Displacement::UAnimNotifyState_Displacement(const FObjectInitializer& ObjectInitializer)
@@ -14,7 +15,7 @@ UAnimNotifyState_Displacement::UAnimNotifyState_Displacement(const FObjectInitia
 
 }
 
-#if ENGINE_MAJOR_VERSION >= 5
+#if UE_VERSION_NEWER_THAN(5, 0, 0)
 void UAnimNotifyState_Displacement::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, float TotalDuration, const FAnimNotifyEventReference& EventReference)
 {
 	Super::NotifyBegin(MeshComp, Animation, TotalDuration, EventReference);
@@ -33,7 +34,7 @@ void UAnimNotifyState_Displacement::NotifyBegin(USkeletalMeshComponent* MeshComp
 	PlayPostion = 0.f;
 }
 
-#if ENGINE_MAJOR_VERSION >= 5
+#if UE_VERSION_NEWER_THAN(5, 0, 0)
 void UAnimNotifyState_Displacement::NotifyTick(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, float FrameDeltaTime, const FAnimNotifyEventReference& EventReference)
 {
 	Super::NotifyTick(MeshComp, Animation, FrameDeltaTime, EventReference);
@@ -55,7 +56,7 @@ void UAnimNotifyState_Displacement::NotifyTick(USkeletalMeshComponent* MeshComp,
 			const float Value = Curve.Evaluate(PlayPostion) * DistCurveValueMultiple;
 			const float FrameDeltaValue = Curve.Evaluate(PlayPostion - PlayRate * FrameDeltaTime);
 
-			#if ENGINE_MAJOR_VERSION >=5 && ENGINE_MINOR_VERSION >= 3
+			#if UE_VERSION_NEWER_THAN(5, 3, 0)
 			if (Curve.GetName().IsEqual(DistCurveName))
 			#else
 			if (Curve.Name.DisplayName.IsEqual(DistCurveName))
@@ -65,7 +66,7 @@ void UAnimNotifyState_Displacement::NotifyTick(USkeletalMeshComponent* MeshComp,
 				Character->AddActorLocalOffset(DeltaLocation, true);
 			}
 
-			#if ENGINE_MAJOR_VERSION >=5 && ENGINE_MINOR_VERSION >= 3
+			#if  UE_VERSION_NEWER_THAN(5, 3, 0)
 			if (Curve.GetName().IsEqual(TurnCurveName))
 			#else
 			if (Curve.Name.DisplayName.IsEqual(TurnCurveName))
@@ -79,7 +80,7 @@ void UAnimNotifyState_Displacement::NotifyTick(USkeletalMeshComponent* MeshComp,
 	}
 }
 
-#if ENGINE_MAJOR_VERSION >= 5
+#if UE_VERSION_NEWER_THAN(5, 0, 0)
 void UAnimNotifyState_Displacement::NotifyEnd(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
 	Super::NotifyEnd(MeshComp, Animation, EventReference);
