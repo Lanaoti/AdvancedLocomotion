@@ -47,7 +47,7 @@ void UAnimNotifyState_Displacement::NotifyTick(USkeletalMeshComponent* MeshComp,
 	PlayPostion += FrameDeltaTime;
 
 	ACharacter* Character = MeshComp ? Cast<ACharacter>(MeshComp->GetOwner()) : nullptr;
-	if (Character && Character->GetClass()->ImplementsInterface(UDisplacementInterface::StaticClass()) && Animation)
+	if (Character && Animation)
 	{
 		const FRawCurveTracks& CurveTracks = Animation->GetCurveData();
 		for (const FFloatCurve& Curve : CurveTracks.FloatCurves)
@@ -74,7 +74,11 @@ void UAnimNotifyState_Displacement::NotifyTick(USkeletalMeshComponent* MeshComp,
 			{
 				FRotator DeltaRotation = FRotator(0.f, FrameDeltaValue - Value, 0.f);
 				Character->AddActorLocalRotation(DeltaRotation);
-				IDisplacementInterface::Execute_DisplacementTick(Character, DeltaRotation, FrameDeltaTime);
+
+				if (Character->GetClass()->ImplementsInterface(UDisplacementInterface::StaticClass()))
+				{
+					IDisplacementInterface::Execute_DisplacementTick(Character, DeltaRotation, FrameDeltaTime);
+				}
 			}
 		}
 	}
